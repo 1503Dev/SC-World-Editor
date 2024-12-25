@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:paddingLeft="16dp"
+	android:paddingTop="16dp"
+	android:paddingBottom="8dp"
+	android:paddingRight="8dp">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/edit_item"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_marginBottom="8dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="ID"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:layout_width="match_parent"
+			android:inputType="number"
+			android:layout_height="match_parent"
+			android:layout_weight="1.0"
+			android:hint="Item ID"
+			android:id="@+id/itemId"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="@string/pick_an_item"
+			android:id="@+id/pick"
+			android:background="@drawable/bg_ripple"
+			android:layout_marginRight="8dp"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/count"
+		android:layout_marginTop="4dp"/>
+
+	<EditText
+		android:layout_width="match_parent"
+		android:inputType="number"
+		android:layout_height="wrap_content"
+		android:id="@+id/itemCount"
+		android:layout_marginRight="8dp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="right">
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="@android:string/cancel"
+			android:id="@+id/cancel"
+			android:background="@drawable/bg_ripple"/>
+
+		<Button
+			android:layout_width="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:text="@string/save"
+			android:id="@+id/save"
+			android:background="@drawable/bg_ripple"
+			android:layout_marginRight="8dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

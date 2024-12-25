@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">生存战争世界编辑器</string>
+    <string name="select_a_.scworld_file">选择一个 .scworld 文件</string>
+    <string name="world_name">世界名称</string>
+    <string name="load_failed">加载失败: %s</string>
+    <string name="save_failed">保存失败: %s</string>
+    <string name="unzip_failed">解压失败</string>
+    <string name="zip_failed">压缩失败</string>
+    <string name="some_file_not_found">文件 %s 不存在</string>
+    <string name="save">保存</string>
+    <string name="saved_successfully">保存成功</string>
+    <string name="world_settings">世界设置</string>
+    <string name="player_settings">玩家设置(仅主玩家)</string>
+    <string name="player_name">玩家名</string>
+    <string name="game_mode">游戏模式</string>
+    <string name="starting_position_mode">出生点难度</string>
+    <string name="player_level">等级</string>
+    <string name="player_health">血量</string>
+    <string name="gamemode_survival">生存</string>
+    <string name="gamemode_cruel">残酷</string>
+    <string name="gamemode_harmless">无害</string>
+    <string name="gamemode_creative">创造</string>
+    <string name="gamemode_challenging">挑战</string>
+    <string name="import_world_tips">导入世界时若出现 "Acess ...Regions Denied" 的报错，请忽略它，这不会影响世界导入</string>
+    <string name="position">位置</string>
+    <string name="inventory">物品栏</string>
+    <string name="edit_item">编辑物品</string>
+    <string name="edit_count">修改数量</string>
+    <string name="pick_an_item">选择一个物品</string>
+    <string name="count">数量</string>
+    <string name="_path_items_display_name">items_zh.json</string>
+    <string name="unable_to_edit_item_warnings">暂时无法编辑空物品</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gamemodeList">
+        <item>@string/gamemode_creative</item>
+        <item>@string/gamemode_harmless</item>
+        <item>@string/gamemode_survival</item>
+        <item>@string/gamemode_challenging</item>
+        <item>@string/gamemode_cruel</item>
+    </string-array>
+</resources>

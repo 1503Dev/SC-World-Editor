@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="76dp"
+		android:gravity="center_vertical"
+		android:background="@drawable/bg_topbar">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/app_name"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_marginLeft="8dp"
+			android:id="@+id/title"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Text"
+			android:layout_marginLeft="8dp"
+			android:id="@+id/path"
+			android:textSize="12sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Text"
+			android:layout_marginLeft="8dp"
+			android:id="@+id/tempDir"
+			android:textSize="10sp"/>
+
+	</LinearLayout>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:padding="16dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:text="-----------------------------------------------------------------------------------------------------------------------------"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/world_settings"
+				android:textColor="#FFFFFFFF"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/world_name"/>
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:hint="@string/world_name"
+				android:layout_height="wrap_content"
+				android:singleLine="true"
+				android:id="@+id/worldName"/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/game_mode"/>
+
+					<LinearLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:gravity="center">
+
+						<Spinner
+							android:id="@+id/gameMode"
+							android:entries="@array/gamemodeList"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:textAlignment="center"
+							android:gravity="center"/>
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/starting_position_mode"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="@string/starting_position_mode"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="none"
+						android:id="@+id/startingPositionMode"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/player_settings"
+				android:layout_marginTop="8dp"
+				android:textColor="#FFFFFFFF"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/player_name"/>
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:hint="@string/player_name"
+				android:layout_height="wrap_content"
+				android:singleLine="true"
+				android:id="@+id/playerName"/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/player_level"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="@string/player_level"
+						android:layout_height="wrap_content"
+						android:inputType="numberDecimal"
+						android:singleLine="true"
+						android:id="@+id/playerLevel"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/player_health"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="@string/player_health"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="numberDecimal"
+						android:id="@+id/playerHealth"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/position"/>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="X"
+						android:layout_gravity="center"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="X"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="numberSigned|numberDecimal"
+						android:id="@+id/playerPosX"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Y"
+						android:layout_gravity="center"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="Y"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="numberSigned|numberDecimal"
+						android:id="@+id/playerPosY"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Z"
+						android:layout_gravity="center"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="Z"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="numberSigned|numberDecimal"
+						android:id="@+id/playerPosZ"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/inventory"/>
+
+			<TableLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="10"
+						android:onClick="editItem"
+						android:id="@+id/inventoryItem10"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="11"
+						android:id="@+id/inventoryItem11"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:tag="12"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem12"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem13"
+						android:tag="13"
+						android:layout_weight="1.0"/>
+
+				</TableRow>
+
+				<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="14"
+						android:id="@+id/inventoryItem14"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:tag="15"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem15"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem16"
+						android:tag="16"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="17"
+						android:id="@+id/inventoryItem17"
+						android:layout_weight="1.0"/>
+
+				</TableRow>
+
+				<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem18"
+						android:tag="18"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="19"
+						android:id="@+id/inventoryItem19"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="20"
+						android:id="@+id/inventoryItem20"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:tag="21"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem21"
+						android:layout_weight="1.0"/>
+
+				</TableRow>
+
+				<TableRow
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="22"
+						android:id="@+id/inventoryItem22"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="23"
+						android:id="@+id/inventoryItem23"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:tag="24"
+						android:id="@+id/inventoryItem24"
+						android:layout_weight="1.0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem25"
+						android:tag="25"
+						android:layout_weight="1.0"/>
+
+				</TableRow>
+
+			</TableLayout>
+
+			<View
+				android:background="?android:attr/dividerVertical"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"/>
+
+			<HorizontalScrollView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="88dp"
+						android:layout_height="72dp"
+						android:tag="0"
+						android:id="@+id/inventoryItem0"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="88dp"
+						android:layout_height="72dp"
+						android:tag="1"
+						android:id="@+id/inventoryItem1"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="88dp"
+						android:tag="2"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem2"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="88dp"
+						android:tag="3"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem3"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="88dp"
+						android:layout_height="72dp"
+						android:tag="4"
+						android:id="@+id/inventoryItem4"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:tag="5"
+						android:layout_width="88dp"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem5"/>
+
+					<tc.scworldeditor.InventoryItemLayout
+						android:orientation="horizontal"
+						android:layout_width="88dp"
+						android:tag="6"
+						android:layout_height="72dp"
+						android:id="@+id/inventoryItem6"/>
+
+				</LinearLayout>
+
+			</HorizontalScrollView>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:text="Text"/>
+
+			<com.google.android.material.button.MaterialButton
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/save"
+				android:onClick="save"
+				android:layout_marginTop="8dp"/>
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>
+
