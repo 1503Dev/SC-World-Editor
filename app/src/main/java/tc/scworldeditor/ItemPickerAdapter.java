@@ -10,12 +10,12 @@ import android.widget.TextView;
 import java.util.LinkedList;
 import tc.scworldeditor.R;
 
-public class WorldListAdapter extends BaseAdapter {
+public class ItemPickerAdapter extends BaseAdapter {
 
-    private LinkedList<WorldListItem> mData;
+    private LinkedList<ItemPickerItem> mData;
     private Context mContext;
 
-    public WorldListAdapter(LinkedList<WorldListItem> mData, Context mContext) {
+    public ItemPickerAdapter(LinkedList<ItemPickerItem> mData, Context mContext) {
         this.mData = mData;
         this.mContext = mContext;
     }
@@ -37,11 +37,11 @@ public class WorldListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_world,parent,false);
-        TextView txt_aName = convertView.findViewById(R.id.worldName);
-        TextView txt_aSpeak = convertView.findViewById(R.id.worldFileName);
-        txt_aName.setText(mData.get(position).getName());
-        txt_aSpeak.setText(mData.get(position).getFileName());
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_items,parent,false);
+        TextView txt_aName = convertView.findViewById(R.id.name);
+        TextView txt_aSpeak = convertView.findViewById(R.id.id);
+        txt_aName.setText(mData.get(position).name);
+        txt_aSpeak.setText(mData.get(position).idEx+"");
         return convertView;
     }
 }

@@ -81,6 +81,7 @@ public class WorldListActivity extends Activity {
         tv = new TextView(this);
         tv.setText(U.worldsPath + "\n" + DedroidFile.EXTERN_STO_PATH + "/SurvivalCraft2.3/files/");
         tv.setPadding(16, 16, 0, 16);
+        tv.setTextSize(12);
         worldList.addFooterView(tv);
         worldList.setOnItemClickListener(new OnItemClickListener(){
 

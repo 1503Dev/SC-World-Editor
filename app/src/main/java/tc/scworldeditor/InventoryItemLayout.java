@@ -52,7 +52,7 @@ public class InventoryItemLayout extends LinearLayout {
     public void setIdEx(int id) {
         itemId.setText("ID: "+id);
         this.id = id;
-        if(id<255){
+        if(id<WorldEditorActivity.itemCount){
             try {
                 JSONArray ja=new JSONArray(U.getStringFromAssets(getContext(), getContext().getString(R.string._path_items_display_name)));
                 setName(ja.getString(id));

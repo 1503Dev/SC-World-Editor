@@ -31,4 +31,5 @@
     <string name="count">数量</string>
     <string name="_path_items_display_name">items_zh.json</string>
     <string name="unable_to_edit_item_warnings">暂时无法编辑空物品</string>
+    <string name="search">搜索</string>
 </resources>

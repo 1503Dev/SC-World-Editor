@@ -2,11 +2,15 @@ package tc.scworldeditor;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,31 +21,29 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
+import org.apache.commons.lang3.ArrayUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import tc.dedroid.util.DedroidFile;
-import android.widget.LinearLayout;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.text.TextWatcher;
-import android.text.Editable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import org.apache.commons.lang3.ArrayUtils;
-import org.json.JSONArray;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
+import android.widget.Adapter;
 
 public class WorldEditorActivity extends Activity {
 
     public static final String TAG = "WorldEditorActivity";
     public Activity self;
+    public static int itemCount=264;
 
     private String path;
     private String tempId;
@@ -51,7 +53,7 @@ public class WorldEditorActivity extends Activity {
     private Element projectXml;
     private NodeList innerSubsystems;
     private NodeList innerEntities;
-    private NodeList oldInnerSubsystems;
+    LinkedList<ItemPickerItem> allPickerItems;
 
     private TextInputEditText worldName;
     private Spinner gameMode;
@@ -70,8 +72,8 @@ public class WorldEditorActivity extends Activity {
 
         Intent intent=getIntent();
         if (!intent.hasExtra("path")) finish();
-        
-        self=this;
+
+        self = this;
 
         path = intent.getStringExtra("path");
         tempId = UUID.randomUUID().toString();
@@ -89,9 +91,9 @@ public class WorldEditorActivity extends Activity {
         startingPositionMode = findViewById(R.id.startingPositionMode);
         startingPositionMode.setEnabled(false);
         playerLevel = findViewById(R.id.playerLevel);
-        playerPosX=findViewById(R.id.playerPosX);
-        playerPosY=findViewById(R.id.playerPosY);
-        playerPosZ=findViewById(R.id.playerPosZ);
+        playerPosX = findViewById(R.id.playerPosX);
+        playerPosY = findViewById(R.id.playerPosY);
+        playerPosZ = findViewById(R.id.playerPosZ);
 
         ZipManager.unzip(path, tempDir, new IZipCallback(){
 
@@ -240,25 +242,25 @@ public class WorldEditorActivity extends Activity {
                                     }
                                     break;
                                 case "Inventory":
-                                    Element e3=U.getElememtByTagNameAndAttr(e2,"Values","Name","Slots");
-                                    if(e3!=null){
+                                    Element e3=U.getElememtByTagNameAndAttr(e2, "Values", "Name", "Slots");
+                                    if (e3 != null) {
                                         Element[] slots = U.getElememtsByTagName(e3, "Values");
-                                        
+
                                         for (int u = 0; u < slots.length; u++) {
-                                            int idIndex=ArrayUtils.indexOf(U.inventorySlot,slots[u].getAttribute("Name"));
-                                           
-                                            if(idIndex!=-1){
-                                                U.inventoryElememts[idIndex]=slots[u];
-                                                
+                                            int idIndex=ArrayUtils.indexOf(U.inventorySlot, slots[u].getAttribute("Name"));
+
+                                            if (idIndex != -1) {
+                                                U.inventoryElememts[idIndex] = slots[u];
+
                                                 InventoryItemLayout iil=findViewById(U.inventoryId[idIndex]);
-                                                Element countE=U.getElememtByTagNameAndAttr(slots[u],"Value","Name","Count");
-                                                Element idE=U.getElememtByTagNameAndAttr(slots[u],"Value","Name","Contents");
-                                                if(countE!=null){
+                                                Element countE=U.getElememtByTagNameAndAttr(slots[u], "Value", "Name", "Count");
+                                                Element idE=U.getElememtByTagNameAndAttr(slots[u], "Value", "Name", "Contents");
+                                                if (countE != null) {
                                                     int id=Integer.parseInt(idE.getAttribute("Value"));
                                                     iil.setCount(Integer.parseInt(countE.getAttribute("Value")));
                                                     iil.setIdEx(id);
                                                     iil.setSlot(idIndex);
-                                                    
+
                                                 }
                                             }
                                         }
@@ -269,8 +271,9 @@ public class WorldEditorActivity extends Activity {
                         break;
                     }
                 }
+
                 for (int i1 = 0; i1 < U.inventoryId.length; i1++) {
-                    
+
                     final int o = i1;
                     final InventoryItemLayout iil = findViewById(U.inventoryId[i1]);
                     iil.setOnClickListener(new OnClickListener(){
@@ -290,25 +293,34 @@ public class WorldEditorActivity extends Activity {
                 .create();
             dialog.show();
         }
-        
-        
+        allPickerItems = new LinkedList<ItemPickerItem>();
+        Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < itemCount; i++) {
+                        ItemPickerItem ipi = new ItemPickerItem(self, i);
+                        allPickerItems.add(ipi);
+                    }
+                }
+            });
+        thread.start();
     }
     public void clearCache() {
-        DedroidFile.del(tempDir);
+        DedroidFile.del(getExternalCacheDir().getAbsolutePath());
     }
-    public void editItem(View v1){
+    public void editItem(View v1) {
         final InventoryItemLayout iil=(InventoryItemLayout)v1;
-        if(iil.id==0){
+        if (iil.id == 0) {
             Toast.makeText(getApplication(), getString(R.string.unable_to_edit_item_warnings), Toast.LENGTH_SHORT).show();
             return;
         }
-        
-        LinearLayout v=(LinearLayout)LinearLayout.inflate(this,R.layout.dialog_edit_item,null);
+
+        LinearLayout v=(LinearLayout)LinearLayout.inflate(this, R.layout.dialog_edit_item, null);
         final EditText count=v.findViewById(R.id.itemCount);
         final EditText id=v.findViewById(R.id.itemId);
-        
-        count.setText(iil.count+"");
-        id.setText(iil.id+"");
+
+        count.setText(iil.count + "");
+        id.setText(iil.id + "");
         id.addTextChangedListener(new TextWatcher(){
 
                 @Override
@@ -321,11 +333,11 @@ public class WorldEditorActivity extends Activity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(!s.toString().equals("")&&Integer.parseInt(s.toString())<=0){
+                    if (!s.toString().equals("") && Integer.parseInt(s.toString()) <= 0) {
                         id.setText("1");
                         return;
                     }
-                    
+
                 }
             });
         count.addTextChangedListener(new TextWatcher(){
@@ -340,11 +352,11 @@ public class WorldEditorActivity extends Activity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int coun) {
-                    if(!s.toString().equals("")&&Integer.parseInt(s.toString())<0){
+                    if (!s.toString().equals("") && Integer.parseInt(s.toString()) < 0) {
                         count.setText("0");
                         return;
                     }
-                    if(s.toString().length()>1&&s.toString().startsWith("0")){
+                    if (s.toString().length() > 1 && s.toString().startsWith("0")) {
                         id.setText(s.toString().substring(1));
                     }
                 }
@@ -353,16 +365,16 @@ public class WorldEditorActivity extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplication(), "暂不可用\nTemporarily unavailable", Toast.LENGTH_SHORT).show();
+                    pickItem(id);
                 }
             });
-        
+
         final AlertDialog dialog = new AlertDialog.Builder(this)
             .setView(v)
             .setCancelable(false)
             .create();
         dialog.show();
-        
+
         v.findViewById(R.id.cancel).setOnClickListener(new OnClickListener(){
 
                 @Override
@@ -374,21 +386,21 @@ public class WorldEditorActivity extends Activity {
 
                 @Override
                 public void onClick(View v) {
-                    if(id.getText().toString().equals("")) {
+                    if (id.getText().toString().equals("")) {
                         id.setText("1");
                         return;
                     }
-                    if(count.getText().toString().equals("")) {
+                    if (count.getText().toString().equals("")) {
                         count.setText("0");
                         return;
                     }
 
                     Element slotE= U.inventoryElememts[iil.slot];
-                    Element countE=U.getElememtByTagNameAndAttr(slotE,"Value","Name","Count");
-                    Element idE=U.getElememtByTagNameAndAttr(slotE,"Value","Name","Contents");
+                    Element countE=U.getElememtByTagNameAndAttr(slotE, "Value", "Name", "Count");
+                    Element idE=U.getElememtByTagNameAndAttr(slotE, "Value", "Name", "Contents");
 
-                    countE.setAttribute("Value",count.getText().toString());
-                    idE.setAttribute("Value",id.getText().toString());
+                    countE.setAttribute("Value", count.getText().toString());
+                    idE.setAttribute("Value", id.getText().toString());
 
                     iil.setIdEx(Integer.parseInt(id.getText().toString()));
                     iil.setCount(Integer.parseInt(count.getText().toString()));
@@ -398,6 +410,59 @@ public class WorldEditorActivity extends Activity {
                 }
             });
     }
+    public void pickItem(final EditText et) {
+        LinearLayout v=(LinearLayout)LinearLayout.inflate(this, R.layout.dialog_item_picker, null);
+        final EditText search=v.findViewById(R.id.searchInput);
+        final ListView list=v.findViewById(R.id.list);
+
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+            .setView(v)
+            .setCancelable(false)
+            .create();
+        dialog.show();
+
+        v.findViewById(R.id.cancel).setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
+        v.findViewById(R.id.search).setOnClickListener(new OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    pickerSearch(list, search.getText().toString());
+                }
+            });
+        list.setOnItemClickListener(new OnItemClickListener(){
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    et.setText(((TextView)view.findViewById(R.id.id)).getText());
+                    dialog.cancel();
+                }
+            });
+        pickerSearch(list, "");
+    }
+    public LinkedList<ItemPickerItem> pickerSearch(ListView lv, String s) {
+        LinkedList<ItemPickerItem> mData = new LinkedList<ItemPickerItem>();
+        ItemPickerAdapter mAdapter;
+
+        if (s.equals("")) {
+            mData = allPickerItems;
+        } else for (ItemPickerItem ipi : allPickerItems) {
+                if (ipi.toString().indexOf(s) != -1) {
+                    mData.add(ipi);
+                }
+            }
+        mAdapter = new ItemPickerAdapter(mData, self);
+        lv.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
+        return mData;
+    }
+
     public void save(View v) {
         for (int i = 0; i < innerSubsystems.getLength(); i++) {
             Node e=innerSubsystems.item(i);
@@ -476,11 +541,11 @@ public class WorldEditorActivity extends Activity {
                                 for (int u = 0; u < bodyAttrList.getLength(); u++) {
                                     Element e3=(Element)bodyAttrList.item(u);
                                     if (e3.getAttribute("Name").equals("Position")) {
-                                        e3.setAttribute("Value",playerPosX.getText()+","+playerPosY.getText()+","+playerPosZ.getText());
+                                        e3.setAttribute("Value", playerPosX.getText() + "," + playerPosY.getText() + "," + playerPosZ.getText());
                                     } 
                                 }
                                 break;
-                            
+
                         }
                     }
                     break;
@@ -497,10 +562,10 @@ public class WorldEditorActivity extends Activity {
         ZipParameters zipParameters = new ZipParameters();
         try {
             String pathRegions = new File(pathProjectXml).getParentFile().getAbsolutePath() + "/Regions";
-            
+
             ZipFile zip = new ZipFile(path);
             zip.addFile(new File(pathProjectXml), zipParameters);
-            if(DedroidFile.exists(pathRegions)){
+            if (DedroidFile.exists(pathRegions)) {
                 zip.addFolder(pathRegions, zipParameters);
             }
             Toast.makeText(getApplication(), getString(R.string.saved_successfully), Toast.LENGTH_SHORT).show();
@@ -539,5 +604,5 @@ public class WorldEditorActivity extends Activity {
         clearCache();
         super.onDestroy();
     }
-    
+
 }
