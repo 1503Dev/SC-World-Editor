@@ -5,25 +5,41 @@
 	android:orientation="vertical"
 	android:id="@+id/activity_worldlistLinearLayout"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:background="#FF181818">
 
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
-		android:layout_height="48dp"
+		android:layout_height="52dp"
 		android:gravity="center_vertical"
 		android:background="@drawable/bg_topbar">
 
-		<TextView
+		<LinearLayout
+			android:orientation="vertical"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/app_name"
-			android:textAppearance="?android:attr/textAppearanceMedium"
-			android:layout_marginLeft="8dp"
-			android:layout_weight="1.0"/>
+			android:layout_weight="1.0"
+			android:layout_marginLeft="8dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/app_name"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textColor="#FFFFFFFF"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="v1.0.2"
+				android:textSize="12sp"
+				android:alpha="0.9"/>
+
+		</LinearLayout>
 
 		<ImageButton
-			android:layout_width="48dp"
+			android:layout_width="52dp"
 			style="?android:attr/buttonBarButtonStyle"
 			android:layout_height="match_parent"
 			android:src="@drawable/ic_reload"
@@ -31,10 +47,10 @@
 			android:scaleType="fitCenter"
 			android:tint="#FFFFFFFF"
 			android:background="@drawable/bg_ripple"
-			android:padding="8dp"/>
+			android:padding="10dp"/>
 
 		<ImageButton
-			android:layout_width="48dp"
+			android:layout_width="52dp"
 			style="?android:attr/buttonBarButtonStyle"
 			android:layout_height="match_parent"
 			android:src="@drawable/ic_info_outline"
@@ -42,7 +58,7 @@
 			android:tint="#FFFFFFFF"
 			android:scaleType="fitCenter"
 			android:background="@drawable/bg_ripple"
-			android:padding="10dp"/>
+			android:padding="12dp"/>
 
 	</LinearLayout>
 

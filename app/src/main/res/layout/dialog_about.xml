@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:padding="16dp">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="About"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_marginBottom="8dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text=" Auther: 1503Dev (TheChuan1503)"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Version: 1.0.2"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text=" Github: 1503Dev/SC-World-Editor"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="    OSS: Material Components for Android"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="         AndroidZip"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="         Zip4j"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="         Apache Commons Lang"
+		android:typeface="monospace"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="             Apache-2.0 License"
+		android:typeface="monospace"
+		android:textStyle="italic"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="         DedroidUtil"
+        android:typeface="monospace"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="             MIT License"
+        android:typeface="monospace"
+		android:textStyle="italic"/>
+    
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Github"
+        android:onClick="toGithub"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
+

@@ -8,6 +8,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,8 +24,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,15 +38,17 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import tc.dedroid.util.DedroidFile;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Adapter;
+import android.widget.Button;
+import java.util.HashMap;
 
 public class WorldEditorActivity extends Activity {
 
     public static final String TAG = "WorldEditorActivity";
     public Activity self;
     public static int itemCount=264;
+    public static String gameVersion;
 
     private String path;
     private String tempId;
@@ -53,7 +58,8 @@ public class WorldEditorActivity extends Activity {
     private Element projectXml;
     private NodeList innerSubsystems;
     private NodeList innerEntities;
-    LinkedList<ItemPickerItem> allPickerItems;
+    static LinkedList<ItemPickerItem> allPickerItems;
+    HashMap<String,Element> elements=new HashMap<>();
 
     private TextInputEditText worldName;
     private Spinner gameMode;
@@ -64,6 +70,12 @@ public class WorldEditorActivity extends Activity {
     private TextInputEditText playerPosX;
     private TextInputEditText playerPosY;
     private TextInputEditText playerPosZ;
+    private TextInputEditText gameVersionEt;
+    private Spinner season;
+    private TextInputEditText timeOfYear;
+
+    boolean canSeasonEtAutoChange=false;
+    boolean canSeasonSpAutoChange=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,19 +93,65 @@ public class WorldEditorActivity extends Activity {
         DedroidFile.mkdir(tempDir);
         ((TextView)findViewById(R.id.title)).setText(intent.getStringExtra("name"));
         ((TextView)findViewById(R.id.path)).setText(path);
-        ((TextView)findViewById(R.id.tempDir)).setText(tempDir);
+        ((TextView)findViewById(R.id.tempDir)).setText("cache/" + tempId);
 
         worldName = findViewById(R.id.worldName);
         playerName = findViewById(R.id.playerName);
         gameMode = findViewById(R.id.gameMode);
         playerHealth = findViewById(R.id.playerHealth);
-
-        startingPositionMode = findViewById(R.id.startingPositionMode);
-        startingPositionMode.setEnabled(false);
+        gameVersionEt = findViewById(R.id.gameVersion);
+        season = findViewById(R.id.season);
         playerLevel = findViewById(R.id.playerLevel);
         playerPosX = findViewById(R.id.playerPosX);
         playerPosY = findViewById(R.id.playerPosY);
         playerPosZ = findViewById(R.id.playerPosZ);
+        startingPositionMode = findViewById(R.id.startingPositionMode);
+        timeOfYear = findViewById(R.id.timeOfYear);
+
+        startingPositionMode.setEnabled(false);
+        gameVersionEt.setEnabled(false);
+        timeOfYear.addTextChangedListener(new TextWatcher(){
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().equals(".")) {
+                        timeOfYear.setText("0.");
+                    }
+                    try {
+                        if (Float.parseFloat(s.toString()) > 1) {
+                            timeOfYear.setText("1");
+                        }
+                        canSeasonEtAutoChange = false;
+                        if (!s.toString().equals(getString(R.string.only_2_4)) && !s.toString().equals("") && canSeasonSpAutoChange) {
+                            season.setSelection(U.getSeasonId(s.toString()));
+                        }
+                        canSeasonSpAutoChange = true;
+                    } catch (Exception e) {}
+                }
+            });
+        season.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    canSeasonSpAutoChange = false;
+                    if (canSeasonEtAutoChange) {
+                        timeOfYear.setText("" + U.seasons[position]);
+                    }
+                    canSeasonEtAutoChange = true;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
 
         ZipManager.unzip(path, tempDir, new IZipCallback(){
 
@@ -118,10 +176,25 @@ public class WorldEditorActivity extends Activity {
     public void afterUnzip() {
         pathProjectXml = tempDir + "/Project.xml";
 
-        if (!DedroidFile.exists(pathProjectXml)) {
-            Toast.makeText(getApplication(), getString(R.string.load_failed, getString(R.string.some_file_not_found, "Project.xml")) , Toast.LENGTH_SHORT).show();
-            clearCache();
-            finishAndRemoveTask();
+        /*if (!DedroidFile.exists(pathProjectXml)) {
+         Toast.makeText(getApplication(), getString(R.string.load_failed, getString(R.string.some_file_not_found, "Project.xml")) , Toast.LENGTH_SHORT).show();
+         clearCache();
+         finishAndRemoveTask();
+         }*/
+        int retryCount=0;
+
+        while (!DedroidFile.exists(pathProjectXml)) {
+            if (retryCount >= 10) {
+                if (!DedroidFile.exists(pathProjectXml)) {
+                    Toast.makeText(getApplication(), getString(R.string.load_failed, getString(R.string.some_file_not_found, "Project.xml")) , Toast.LENGTH_SHORT).show();
+                    clearCache();
+                    finishAndRemoveTask();
+                } else break;
+            }
+            retryCount++;
+            try {
+                Thread.sleep(80);
+            } catch (InterruptedException e) {}
         }
 
         try {
@@ -144,6 +217,21 @@ public class WorldEditorActivity extends Activity {
             Document document = builder.parse(inputStream);
             // 获取根元素
             projectXml = document.getDocumentElement();
+            gameVersion = projectXml.getAttribute("Version");
+            gameVersionEt.setText(gameVersion);
+            if (!gameVersion.equals("2.4")) {
+                season.setEnabled(false);
+                ArrayList<String> al = new ArrayList<String>();
+                al.add(getString(R.string.only_2_4));
+                season.setAdapter(
+                    new ArrayAdapter<String>(
+                        this,
+                        android.R.layout.simple_spinner_item, 
+                        al
+                    ));
+                timeOfYear.setText(getString(R.string.only_2_4));
+                timeOfYear.setEnabled(false);
+            }
             innerSubsystems = projectXml.getElementsByTagName("Subsystems").item(0).getChildNodes();
             innerEntities = projectXml.getElementsByTagName("Entities").item(0).getChildNodes();
 
@@ -164,6 +252,13 @@ public class WorldEditorActivity extends Activity {
                                 // 初始化世界名称
                                 if (u1.getAttribute("Name").equals("WorldName")) {
                                     worldName.setText(u1.getAttribute("Value"));
+                                    worldName.setHint(u1.getAttribute("Value"));
+                                } else if (u1.getAttribute("Name").equals("TimeOfYear")) {
+                                    // 初始化季节
+                                    timeOfYear.setText(u1.getAttribute("Value"));
+                                    timeOfYear.setHint(u1.getAttribute("Value"));
+
+                                    season.setSelection(U.getSeasonId(u1.getAttribute("Value")));
                                 } else if (u1.getAttribute("Name").equals("GameMode")) {
                                     // 初始化游戏模式
                                     switch (u1.getAttribute("Value")) {
@@ -201,8 +296,11 @@ public class WorldEditorActivity extends Activity {
                                 // 初始化玩家名
                                 if (u1.getAttribute("Name").equals("Name")) {
                                     playerName.setText(u1.getAttribute("Value"));
+                                    playerName.setHint(u1.getAttribute("Value"));
                                 } else if (u1.getAttribute("Name").equals("Level")) {
+                                    // 玩家等级
                                     playerLevel.setText(u1.getAttribute("Value"));
+                                    playerLevel.setHint(u1.getAttribute("Value"));
                                 }
                             }
                         }
@@ -226,6 +324,7 @@ public class WorldEditorActivity extends Activity {
                                         Element e3=(Element)healthAttrList.item(u);
                                         if (e3.getAttribute("Name").equals("Health")) {
                                             playerHealth.setText(e3.getAttribute("Value"));
+                                            playerHealth.setHint(e3.getAttribute("Value"));
                                         } 
                                     }
                                     break;
@@ -238,6 +337,9 @@ public class WorldEditorActivity extends Activity {
                                             playerPosX.setText(pos[0]);
                                             playerPosY.setText(pos[1]);
                                             playerPosZ.setText(pos[2]);
+                                            playerPosX.setHint(pos[0]);
+                                            playerPosY.setHint(pos[1]);
+                                            playerPosZ.setHint(pos[2]);
                                         } 
                                     }
                                     break;
@@ -260,11 +362,16 @@ public class WorldEditorActivity extends Activity {
                                                     iil.setCount(Integer.parseInt(countE.getAttribute("Value")));
                                                     iil.setIdEx(id);
                                                     iil.setSlot(idIndex);
-
                                                 }
                                             }
                                         }
                                     }
+                                    break;
+                                case "OnFire":
+                                    elements.put("Player/FireDuration", U.getElememtByTagNameAndAttr(e2, "Value", "Name", "FireDuration"));
+                                    break;
+                                case "Flu":
+                                    elements.put("Player/FluDuration",U.getElememtByTagNameAndAttr(e2,"Value","Name","FluDuration"));
                                     break;
                             }
                         }
@@ -273,8 +380,6 @@ public class WorldEditorActivity extends Activity {
                 }
 
                 for (int i1 = 0; i1 < U.inventoryId.length; i1++) {
-
-                    final int o = i1;
                     final InventoryItemLayout iil = findViewById(U.inventoryId[i1]);
                     iil.setOnClickListener(new OnClickListener(){
 
@@ -293,17 +398,7 @@ public class WorldEditorActivity extends Activity {
                 .create();
             dialog.show();
         }
-        allPickerItems = new LinkedList<ItemPickerItem>();
-        Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < itemCount; i++) {
-                        ItemPickerItem ipi = new ItemPickerItem(self, i);
-                        allPickerItems.add(ipi);
-                    }
-                }
-            });
-        thread.start();
+        worldName.clearFocus();
     }
     public void clearCache() {
         DedroidFile.del(getExternalCacheDir().getAbsolutePath());
@@ -409,6 +504,20 @@ public class WorldEditorActivity extends Activity {
                     dialog.cancel();
                 }
             });
+        v.findViewById(R.id.delete).setOnClickListener(new OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    ((Button)v).setText(R.string.delete_confirm);
+                    v.setOnClickListener(new OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                U.inventoryElememts[iil.slot].getParentNode().removeChild(U.inventoryElememts[iil.slot]);
+                                iil.delete();
+                                dialog.cancel();
+                            }
+                        });
+                }
+            });
     }
     public void pickItem(final EditText et) {
         LinearLayout v=(LinearLayout)LinearLayout.inflate(this, R.layout.dialog_item_picker, null);
@@ -476,7 +585,11 @@ public class WorldEditorActivity extends Activity {
                         if (u.getClass().getName().equals("org.apache.harmony.xml.dom.ElementImpl")) {
                             Element u1=(Element)u;
                             if (u1.getAttribute("Name").equals("WorldName")) {
+                                // 保存世界名称
                                 u1.setAttribute("Value", worldName.getText().toString());
+                            } else if (u1.getAttribute("Name").equals("TimeOfYear")) {
+                                // 保存季节
+                                u1.setAttribute("Value", timeOfYear.getText().toString());
                             } else if (u1.getAttribute("Name").equals("GameMode")) {
                                 // 保存游戏模式
                                 switch (gameMode.getSelectedItemPosition()) {
@@ -506,6 +619,7 @@ public class WorldEditorActivity extends Activity {
                         Node u=player1.item(o);
                         if (u.getClass().getName().equals("org.apache.harmony.xml.dom.ElementImpl")) {
                             Element u1=(Element)u;
+                            // 保存玩家信息
                             if (u1.getAttribute("Name").equals("Name")) {
                                 u1.setAttribute("Value", playerName.getText().toString());
                             } else if (u1.getAttribute("Name").equals("Level")) {
@@ -558,10 +672,13 @@ public class WorldEditorActivity extends Activity {
         } catch (IOException e) {
             Toast.makeText(getApplication(), getString(R.string.saved_successfully) + e.toString(), Toast.LENGTH_SHORT).show();
         }
-        DedroidFile.del(path);
         ZipParameters zipParameters = new ZipParameters();
         try {
             String pathRegions = new File(pathProjectXml).getParentFile().getAbsolutePath() + "/Regions";
+
+            DedroidFile.del(path + ".bak");
+            DedroidFile.copy(path, path + ".bak");
+            DedroidFile.del(path);
 
             ZipFile zip = new ZipFile(path);
             zip.addFile(new File(pathProjectXml), zipParameters);
@@ -605,4 +722,12 @@ public class WorldEditorActivity extends Activity {
         super.onDestroy();
     }
 
+    public void putOutFire(View v) {
+        elements.get("Player/FireDuration").setAttribute("Value","0");
+        Toast.makeText(getApplication(), "Done", Toast.LENGTH_SHORT).show();
+    }
+    public void clearFlu(View v) {
+        elements.get("Player/FluDuration").setAttribute("Value", "0");
+        Toast.makeText(getApplication(), "Done", Toast.LENGTH_SHORT).show();
+    }
 }

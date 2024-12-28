@@ -21,7 +21,8 @@
 		android:layout_height="wrap_content"
 		android:text="Text"
 		android:textSize="12sp"
-		android:id="@+id/worldFileName"/>
+		android:id="@+id/worldFileName"
+		android:alpha="0.9"/>
 
 </LinearLayout>
 

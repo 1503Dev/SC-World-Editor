@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class InventoryItemLayout extends LinearLayout {
 
@@ -46,22 +47,28 @@ public class InventoryItemLayout extends LinearLayout {
         this.name = name;
     }
     public void setCount(int count) {
-        itemCount.setText("x"+count);
+        itemCount.setText("x" + count);
         this.count = count;
     }
     public void setIdEx(int id) {
-        itemId.setText("ID: "+id);
+        itemId.setText("ID: " + id);
         this.id = id;
-        if(id<WorldEditorActivity.itemCount){
-            try {
-                JSONArray ja=new JSONArray(U.getStringFromAssets(getContext(), getContext().getString(R.string._path_items_display_name)));
-                setName(ja.getString(id));
-            } catch (JSONException e) {
-                setName("UNK ITEM");
-            }
-        } else setName("UNK ITEM");
+        try {
+            JSONObject ja=new JSONObject(U.getStringFromAssets(getContext(), getContext().getString(R.string._path_items_display_name)));
+            setName(ja.getString(id + ""));
+        } catch (JSONException e) {
+            setName("UNK ITEM");
+        }
     }
-    public void setSlot(int slot){
-        this.slot=slot;
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+    public void delete(){
+        setName("");
+        itemCount.setText("");
+        itemId.setText("");
+        id=0;
+        slot=0;
+        count=0;
     }
 }

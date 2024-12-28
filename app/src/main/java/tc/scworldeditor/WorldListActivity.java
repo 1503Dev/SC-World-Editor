@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import tc.dedroid.util.DedroidFile;
+import android.widget.LinearLayout;
 
 public class WorldListActivity extends Activity {
 
@@ -95,6 +96,17 @@ public class WorldListActivity extends Activity {
                     startActivity(i);
                 }
             });
+        WorldEditorActivity.allPickerItems = new LinkedList<ItemPickerItem>();
+        Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < WorldEditorActivity.itemCount; i++) {
+                        ItemPickerItem ipi = new ItemPickerItem(self, i);
+                        WorldEditorActivity.allPickerItems.add(ipi);
+                    }
+                }
+            });
+        thread.start();
     }
     public void requestPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -122,13 +134,15 @@ public class WorldListActivity extends Activity {
         loadWorlds();
     }
     public void about(View v) {
-        TextView tv=new TextView(self);
-        tv.setText(Html.fromHtml(U.getStringFromAssets(self,"about.html")));
-        tv.setPadding(32,32,32,32);
-        
         AlertDialog dialog = new AlertDialog.Builder(this)
-            .setView(tv)
+            .setView(LinearLayout.inflate(this, R.layout.dialog_about, null))
             .create();
         dialog.show();
+    }
+    public void toGithub(View v) {
+        Uri uri=Uri.parse("https://github.com/1503Dev/SC-World-Editor");
+        Intent i = new Intent();
+        i.setData(uri);
+        startActivity(i);
     }
 }

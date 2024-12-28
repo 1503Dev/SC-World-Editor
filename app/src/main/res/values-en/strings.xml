@@ -22,7 +22,7 @@
     <string name="gamemode_harmless">Harmless</string>
     <string name="gamemode_creative">Creative</string>
     <string name="gamemode_challenging">Challenging</string>
-    <string name="import_world_tips">When importing the world,if you encounter an error message saying"Access...Regions Denied,"please ignore it;it will not affect the world import.</string>
+    <string name="import_world_tips">When importing the world, if you encounter an ERROR message saying "Access ... Regions Denied", please ignore it.It will not affect the world import.</string>
     <string name="position">Position</string>
     <string name="inventory">Inventory</string>
     <string name="edit_item">Edit Item</string>
@@ -31,4 +31,26 @@
     <string name="count">Count</string>
     <string name="_path_items_display_name">items_en.json</string>
     <string name="unable_to_edit_item_warnings">Unable to edit empty items temporarily</string>
+    <string name="search">Search</string>
+    <string name="game_version">Game Version</string>
+    <string name="season">Season (Approximate)</string>
+    <string name="season_early_spring">Early Spring</string>
+    <string name="season_spring">Spring</string>
+    <string name="season_late_spring">Late Spring</string>
+    <string name="season_early_summer">Early Summer</string>
+    <string name="season_summer">Summer</string>
+    <string name="season_late_summer">Late Summer</string>
+    <string name="season_early_autumn">Early Autumn</string>
+    <string name="season_autumn">Autumn</string>
+    <string name="season_late_autumn">Late Autumn</string>
+    <string name="season_early_winter">Early Winter</string>
+    <string name="season_winter">Winter</string>
+    <string name="season_late_winter">Late Winter</string>
+    <string name="only_2.4">Only 2.4</string>
+    <string name="time_of_year">Progress of the Year</string>
+    <string name="delete">Delete</string>
+    <string name="delete_confirm">Confirm Deletion</string>
+    <string name="put_out_fire">Put Out Fire</string>
+    <string name="clear_flu">Clear Flu</string>
+    <string name="quick_options">Quick Options</string>
 </resources>

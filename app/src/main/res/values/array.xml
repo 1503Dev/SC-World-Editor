@@ -7,4 +7,18 @@
         <item>@string/gamemode_challenging</item>
         <item>@string/gamemode_cruel</item>
     </string-array>
+    <string-array name="seasonList">
+        <item>@string/season_early_spring</item>
+        <item>@string/season_spring</item>
+        <item>@string/season_late_spring</item>
+        <item>@string/season_early_summer</item>
+        <item>@string/season_summer</item>
+        <item>@string/season_late_summer</item>
+        <item>@string/season_early_autumn</item>
+        <item>@string/season_autumn</item>
+        <item>@string/season_late_autumn</item>
+        <item>@string/season_early_winter</item>
+        <item>@string/season_winter</item>
+        <item>@string/season_late_winter</item>
+    </string-array>
 </resources>

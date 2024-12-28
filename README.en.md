@@ -4,12 +4,12 @@ Survivalcraft 2 World Editor
 [🇨🇳Chinese](README.md)
 
 ## Features
-
-- Edit world properties(world name,game mode)
-- Edit main player properties(health,level,position)
+- Edit world attributes (world name, game mode, seasons (2.4))
+- Edit main player attributes (health, level, position)
 - Edit main player inventory
+- Quick settings for player status (extinguish fire, clear flu)
 
 ## Usage
-
-- Copy the`.scworld`file to`/sdcard/1503Dev/SCWorldEditor/`
-- After editing,copy the map file back
+- Copy the exported `.scworld` file to `/sdcard/1503Dev/SCWorldEditor/`
+- Open the editor
+- After editing, copy the map file back and import it

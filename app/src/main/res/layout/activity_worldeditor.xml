@@ -4,12 +4,13 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:background="#FF181818">
 
 	<LinearLayout
 		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="76dp"
+		android:layout_height="70dp"
 		android:gravity="center_vertical"
 		android:background="@drawable/bg_topbar">
 
@@ -19,7 +20,8 @@
 			android:text="@string/app_name"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_marginLeft="8dp"
-			android:id="@+id/title"/>
+			android:id="@+id/title"
+			android:textColor="#FFFFFFFF"/>
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -59,7 +61,10 @@
 				android:layout_height="wrap_content"
 				android:text="@string/world_settings"
 				android:textColor="#FFFFFFFF"
-				android:textAppearance="?android:attr/textAppearanceMedium"/>
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_marginBottom="8dp"
+				android:layout_marginTop="16dp"
+				android:textSize="22sp"/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -76,7 +81,8 @@
 			<LinearLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp">
 
 				<LinearLayout
 					android:orientation="vertical"
@@ -99,9 +105,10 @@
 							android:id="@+id/gameMode"
 							android:entries="@array/gamemodeList"
 							android:layout_width="match_parent"
-							android:layout_height="wrap_content"
+							android:layout_height="match_parent"
 							android:textAlignment="center"
-							android:gravity="center"/>
+							android:gravity="center"
+							android:layout_marginTop="6dp"/>
 
 					</LinearLayout>
 
@@ -128,15 +135,89 @@
 
 				</LinearLayout>
 
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/game_version"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="@string/starting_position_mode"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="none"
+						android:id="@+id/gameVersion"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp">
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/season"/>
+
+					<Spinner
+						android:layout_width="match_parent"
+						android:entries="@array/seasonList"
+						android:layout_height="match_parent"
+						android:id="@+id/season"
+						android:layout_weight="1.0"
+						android:layout_marginTop="8dp"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/time_of_year"/>
+
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_width="match_parent"
+						android:hint="@string/time_of_year"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="numberDecimal"
+						android:maxLength="9"
+						android:id="@+id/timeOfYear"/>
+
+				</LinearLayout>
+
 			</LinearLayout>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="@string/player_settings"
-				android:layout_marginTop="8dp"
+				android:layout_marginTop="24dp"
 				android:textColor="#FFFFFFFF"
-				android:textAppearance="?android:attr/textAppearanceMedium"/>
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_marginBottom="8dp"
+				android:textSize="22sp"/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -153,7 +234,8 @@
 			<LinearLayout
 				android:orientation="horizontal"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp">
 
 				<LinearLayout
 					android:orientation="vertical"
@@ -202,7 +284,8 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/position"/>
+				android:text="@string/position"
+				android:layout_marginTop="8dp"/>
 
 			<LinearLayout
 				android:orientation="horizontal"
@@ -218,8 +301,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="X"
-						android:layout_gravity="center"/>
+						android:text="X"/>
 
 					<com.google.android.material.textfield.TextInputEditText
 						android:layout_width="match_parent"
@@ -240,8 +322,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="Y"
-						android:layout_gravity="center"/>
+						android:text="Y"/>
 
 					<com.google.android.material.textfield.TextInputEditText
 						android:layout_width="match_parent"
@@ -262,8 +343,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="Z"
-						android:layout_gravity="center"/>
+						android:text="Z"/>
 
 					<com.google.android.material.textfield.TextInputEditText
 						android:layout_width="match_parent"
@@ -280,7 +360,8 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/inventory"/>
+				android:text="@string/inventory"
+				android:layout_marginTop="8dp"/>
 
 			<TableLayout
 				android:layout_width="match_parent"
@@ -503,6 +584,38 @@
 						android:tag="6"
 						android:layout_height="72dp"
 						android:id="@+id/inventoryItem6"/>
+
+				</LinearLayout>
+
+			</HorizontalScrollView>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/quick_options"
+				android:layout_marginTop="8dp"/>
+
+			<HorizontalScrollView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+				<LinearLayout
+					android:orientation="horizontal"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+
+					<com.google.android.material.button.MaterialButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:onClick="putOutFire"
+						android:text="@string/put_out_fire"/>
+
+					<com.google.android.material.button.MaterialButton
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:onClick="clearFlu"
+						android:text="@string/clear_flu"
+						android:layout_marginLeft="8dp"/>
 
 				</LinearLayout>
 
