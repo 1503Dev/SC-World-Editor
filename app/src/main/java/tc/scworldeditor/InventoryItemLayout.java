@@ -6,6 +6,8 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.widget.ImageView;
+import android.graphics.Bitmap;
 
 public class InventoryItemLayout extends LinearLayout {
 
@@ -14,6 +16,7 @@ public class InventoryItemLayout extends LinearLayout {
     private TextView itemName;
     private TextView itemCount;
     private TextView itemId;
+    private ImageView itemIcon;
 
     public String name;
     public int count=0;
@@ -41,6 +44,7 @@ public class InventoryItemLayout extends LinearLayout {
         itemName = findViewById(R.id.itemName);
         itemCount = findViewById(R.id.itemCount);
         itemId = findViewById(R.id.itemId);
+        itemIcon = findViewById(R.id.itemIcon);
     }
     public void setName(String name) {
         itemName.setText(name);
@@ -51,7 +55,7 @@ public class InventoryItemLayout extends LinearLayout {
         this.count = count;
     }
     public void setIdEx(int id) {
-        itemId.setText("ID: " + id);
+        itemId.setText("ID " + id);
         this.id = id;
         try {
             JSONObject ja=new JSONObject(U.getStringFromAssets(getContext(), getContext().getString(R.string._path_items_display_name)));
@@ -59,16 +63,25 @@ public class InventoryItemLayout extends LinearLayout {
         } catch (JSONException e) {
             setName("UNK ITEM");
         }
+        try {
+            JSONObject ja=new JSONObject(U.getStringFromAssets(getContext(), "items.json"));
+            setIcon(U.getBitmapFromAssets(getContext(), "textures/" + ja.getString(id + "") + ".png"));
+        } catch (JSONException e) {
+            setIcon(null);
+        }
     }
     public void setSlot(int slot) {
         this.slot = slot;
     }
-    public void delete(){
+    public void setIcon(Bitmap bm) {
+        itemIcon.setImageBitmap(bm);
+    }
+    public void delete() {
         setName("");
         itemCount.setText("");
         itemId.setText("");
-        id=0;
-        slot=0;
-        count=0;
+        setIcon(null);
+        id = 0;
+        count = 0;
     }
 }

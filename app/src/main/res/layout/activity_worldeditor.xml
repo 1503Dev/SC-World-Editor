@@ -71,7 +71,7 @@
 				android:layout_height="wrap_content"
 				android:text="@string/world_name"/>
 
-			<com.google.android.material.textfield.TextInputEditText
+			<EditText
 				android:layout_width="match_parent"
 				android:hint="@string/world_name"
 				android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
 					android:orientation="vertical"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_weight="1.0">
+					android:layout_weight="1">
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
 						android:layout_height="wrap_content"
 						android:text="@string/starting_position_mode"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
 						android:hint="@string/starting_position_mode"
 						android:layout_height="wrap_content"
@@ -146,9 +146,8 @@
 						android:layout_height="wrap_content"
 						android:text="@string/game_version"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
-						android:hint="@string/starting_position_mode"
 						android:layout_height="wrap_content"
 						android:singleLine="true"
 						android:inputType="none"
@@ -196,14 +195,34 @@
 						android:layout_height="wrap_content"
 						android:text="@string/time_of_year"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
-						android:hint="@string/time_of_year"
 						android:layout_height="wrap_content"
 						android:singleLine="true"
 						android:inputType="numberDecimal"
 						android:maxLength="9"
 						android:id="@+id/timeOfYear"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.2">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/year_days"/>
+
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="number"
+						android:maxLength="9"
+						android:id="@+id/yearDays"/>
 
 				</LinearLayout>
 
@@ -224,7 +243,7 @@
 				android:layout_height="wrap_content"
 				android:text="@string/player_name"/>
 
-			<com.google.android.material.textfield.TextInputEditText
+			<EditText
 				android:layout_width="match_parent"
 				android:hint="@string/player_name"
 				android:layout_height="wrap_content"
@@ -248,7 +267,7 @@
 						android:layout_height="wrap_content"
 						android:text="@string/player_level"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
 						android:hint="@string/player_level"
 						android:layout_height="wrap_content"
@@ -269,13 +288,62 @@
 						android:layout_height="wrap_content"
 						android:text="@string/player_health"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
 						android:hint="@string/player_health"
 						android:layout_height="wrap_content"
 						android:singleLine="true"
 						android:inputType="numberDecimal"
 						android:id="@+id/playerHealth"/>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp">
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/gender"/>
+
+					<Spinner
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="8dp"
+						android:entries="@array/genderList"
+						android:id="@+id/playerGender"/>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight="1.0">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/hunger"/>
+
+					<EditText
+						android:layout_width="match_parent"
+						android:hint="@string/hunger"
+						android:layout_height="wrap_content"
+						android:singleLine="true"
+						android:inputType="numberDecimal"
+						android:id="@+id/playerHunger"/>
 
 				</LinearLayout>
 
@@ -303,7 +371,7 @@
 						android:layout_height="wrap_content"
 						android:text="X"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
 						android:hint="X"
 						android:layout_height="wrap_content"
@@ -324,7 +392,7 @@
 						android:layout_height="wrap_content"
 						android:text="Y"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
 						android:hint="Y"
 						android:layout_height="wrap_content"
@@ -345,7 +413,7 @@
 						android:layout_height="wrap_content"
 						android:text="Z"/>
 
-					<com.google.android.material.textfield.TextInputEditText
+					<EditText
 						android:layout_width="match_parent"
 						android:hint="Z"
 						android:layout_height="wrap_content"
@@ -615,6 +683,13 @@
 						android:layout_height="wrap_content"
 						android:onClick="clearFlu"
 						android:text="@string/clear_flu"
+						android:layout_marginLeft="8dp"/>
+                    
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="clearSick"
+                        android:text="@string/clear_sick"
 						android:layout_marginLeft="8dp"/>
 
 				</LinearLayout>

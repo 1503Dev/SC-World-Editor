@@ -32,7 +32,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="v1.0.2"
+				android:text="v1.0.3"
 				android:textSize="12sp"
 				android:alpha="0.9"/>
 
@@ -47,7 +47,7 @@
 			android:scaleType="fitCenter"
 			android:tint="#FFFFFFFF"
 			android:background="@drawable/bg_ripple"
-			android:padding="10dp"/>
+			android:padding="11dp"/>
 
 		<ImageButton
 			android:layout_width="52dp"
@@ -58,7 +58,7 @@
 			android:tint="#FFFFFFFF"
 			android:scaleType="fitCenter"
 			android:background="@drawable/bg_ripple"
-			android:padding="12dp"/>
+			android:padding="13dp"/>
 
 	</LinearLayout>
 

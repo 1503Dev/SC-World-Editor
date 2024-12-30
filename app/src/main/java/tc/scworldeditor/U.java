@@ -1,7 +1,14 @@
 package tc.scworldeditor;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.Toast;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -17,7 +24,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-import android.content.Context;
 
 public class U {
     public static final String TAG = "U";
@@ -153,13 +159,31 @@ public class U {
             return 2;
         }
     }
+    public static Bitmap getBitmapFromAssets(Context context, String fileName) {
+        Bitmap bitmap = null;
+        try {
+            // 获取AssetManager实例
+            AssetManager assetManager = context.getAssets();
+            // 使用AssetManager打开图片文件
+            InputStream inputStream = assetManager.open(fileName);
+            // 将InputStream转换为Bitmap对象
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
 
 
 
     public static void t(Activity act, String a) {
+        Toast.makeText(act.getApplication(), a, Toast.LENGTH_LONG).show();
         AlertDialog dialog = new AlertDialog.Builder(act)
             .setMessage(a)
             .create();
         dialog.show();
+    }
+    public static void t(Activity act,Exception e){
+        t(act,e.getMessage());
     }
 }

@@ -57,10 +57,16 @@ public class WorldListActivity extends Activity {
         DedroidFile.mkdir(U.worldsPath);
         File[] fileList = new File(U.worldsPath).listFiles();
         File scMod2_3Dir=new File(DedroidFile.EXTERN_STO_PATH + "/SurvivalCraft2.3/files");
+        File scMod2_4_API1_8Dir=new File(DedroidFile.EXTERN_STO_PATH + "/Survivalcraft2.4_API1.8/files");
         File scDefDir=new File(DedroidFile.EXTERN_STO_PATH + "/Android/data/com.candyrufusgames.survivalcraft2/files");
         if (scMod2_3Dir.exists() && scMod2_3Dir.isDirectory()) {
             List<File> list = new ArrayList<File>(Arrays.asList(fileList));
             list.addAll(Arrays.asList(scMod2_3Dir.listFiles()));
+            fileList = list.toArray(new File[0]);
+        }
+        if (scMod2_4_API1_8Dir.exists() && scMod2_4_API1_8Dir.isDirectory()) {
+            List<File> list = new ArrayList<File>(Arrays.asList(fileList));
+            list.addAll(Arrays.asList(scMod2_4_API1_8Dir.listFiles()));
             fileList = list.toArray(new File[0]);
         }
         try {
@@ -80,7 +86,7 @@ public class WorldListActivity extends Activity {
         mAdapter = new WorldListAdapter((LinkedList<WorldListItem>) mData, self);
         worldList.setAdapter(mAdapter);
         tv = new TextView(this);
-        tv.setText(U.worldsPath + "\n" + DedroidFile.EXTERN_STO_PATH + "/SurvivalCraft2.3/files/");
+        tv.setText(U.worldsPath + "\n" + DedroidFile.EXTERN_STO_PATH + "/SurvivalCraft2.3/files/\n" + DedroidFile.EXTERN_STO_PATH + "/SurvivalCraft2.4_API1.8/files/");
         tv.setPadding(16, 16, 0, 16);
         tv.setTextSize(12);
         worldList.addFooterView(tv);

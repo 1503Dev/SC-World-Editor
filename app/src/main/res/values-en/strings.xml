@@ -11,7 +11,7 @@
     <string name="save">Save</string>
     <string name="saved_successfully">Saved successfully</string>
     <string name="world_settings">World Settings</string>
-    <string name="player_settings">Player Settings(Only the Main Player)</string>
+    <string name="player_settings">Player Settings(Only Main Player)</string>
     <string name="player_name">Player Name</string>
     <string name="game_mode">Game Mode</string>
     <string name="starting_position_mode">Starting Position Mode</string>
@@ -49,7 +49,7 @@
     <string name="only_2.4">Only 2.4</string>
     <string name="time_of_year">Progress of the Year</string>
     <string name="delete">Delete</string>
-    <string name="delete_confirm">Confirm Deletion</string>
+    <string name="delete_confirm">Confirm Delete</string>
     <string name="put_out_fire">Put Out Fire</string>
     <string name="clear_flu">Clear Flu</string>
     <string name="quick_options">Quick Options</string>

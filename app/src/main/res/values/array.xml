@@ -21,4 +21,8 @@
         <item>@string/season_winter</item>
         <item>@string/season_late_winter</item>
     </string-array>
+    <string-array name="genderList">
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </string-array>
 </resources>

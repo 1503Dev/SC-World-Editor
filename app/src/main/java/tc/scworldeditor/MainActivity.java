@@ -1,17 +1,14 @@
 package tc.scworldeditor;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
-import android.widget.Toast;
-import androidx.core.content.ContextCompat;
+import android.*;
+import android.app.*;
+import android.content.*;
+import android.content.pm.*;
+import android.net.*;
+import android.os.*;
+import android.provider.*;
+import androidx.core.content.*;
+import java.util.*;
 
 public class MainActivity extends Activity {
 

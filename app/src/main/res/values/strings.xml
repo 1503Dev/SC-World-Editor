@@ -39,13 +39,13 @@
     <string name="season_late_spring">晚春</string>
     <string name="season_early_summer">初夏</string>
     <string name="season_summer">盛夏</string>
-    <string name="season_late_summer">夏末</string>
+    <string name="season_late_summer">末夏</string>
     <string name="season_early_autumn">初秋</string>
     <string name="season_autumn">秋天</string>
-    <string name="season_late_autumn">晚秋</string>
+    <string name="season_late_autumn">深秋</string>
     <string name="season_early_winter">初冬</string>
     <string name="season_winter">冬天</string>
-    <string name="season_late_winter">晚冬</string>
+    <string name="season_late_winter">深冬</string>
     <string name="only_2.4">仅2.4</string>
     <string name="time_of_year">今年进度</string>
     <string name="delete">删除</string>
@@ -53,4 +53,13 @@
     <string name="put_out_fire">灭火</string>
     <string name="clear_flu">清除感冒</string>
     <string name="quick_options">快捷设置</string>
+    <string name="add_item">添加物品</string>
+    <string name="wait_items_loaded">请等待物品加载完成，剩余 %s 个</string>
+    <string name="version_may_not_be_compatible">当前存档非2.3及以上版本，可能不兼容</string>
+    <string name="year_days">一年长度 / 天</string>
+    <string name="gender">性别</string>
+    <string name="hunger">饥饿值</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="clear_sick">清除生病</string>
 </resources>
